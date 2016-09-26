@@ -27,14 +27,17 @@ void findTranspose(int num_rows, int num_columns, double * original_matrix) {
 }
 
 void main() {
+    double start_t, end_t;
+    struct timeval tv;
     double *original_matrix;
     int i, k, num_rows, num_columns, id, no_threads;
     double time;
     omp_set_num_threads(2);
 
-    printf("\nEnter the Order of the First matrix...\n");
-    scanf("%d %d", &num_rows, &num_columns);
-
+    printf("\nEnter Order of the Square Matrix...\n");
+    scanf("%d", &num_rows);
+    
+    num_columns=num_rows;
 
     original_matrix = (double*) malloc((num_rows * num_columns) * sizeof (double));
 
@@ -42,8 +45,7 @@ void main() {
 
     //Taking Input for Matrix 
     for (i = 0; i < num_rows * num_columns; i++) {
-        printf("Enter the value of %d-th element", i);
-        scanf("%lf", &original_matrix[i]);
+        original_matrix[i]=rand()%100;
     }
 
     printf("Original Matrix\n\n");
@@ -53,8 +55,14 @@ void main() {
         printf("\n");
     }
 
-
+    gettimeofday(&tv, 0);
+    start_t = (double) tv.tv_sec + (double) tv.tv_usec / 1000000.0;
     findTranspose(num_rows, num_columns, original_matrix);
+    gettimeofday(&tv, 0);
+    end_t = (double) tv.tv_sec + (double) tv.tv_usec / 1000000.0;
+    end_t = end_t - start_t;
+    printf("Time taken: %f ", end_t);
+
 }
 
 

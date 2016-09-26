@@ -28,8 +28,9 @@ main() {
     int **matrix;
     int *vector;
     int i, j, n, num_rows, num_columns;
+    double start_t, end_t;
+    struct timeval tv;
 
-    double timeofday;
     omp_set_num_threads(2);
 
     printf("\nPlease enter the Order of the First matrix\n");
@@ -45,16 +46,31 @@ main() {
     //Taking input for matrix
     for (i = 0; i < num_rows; i++)
         for (j = 0; j < num_columns; j++) {
-            printf("Enter value for (%d ,%d) -th element of matrix", i, j);
-            scanf("%d", &matrix[i][j]);
+            matrix[i][j]=rand()%100;
         }
+    printf("Matrix Generated : \n");
+    for (i = 0; i < num_rows; i++)
+{
+        for (j = 0; j < num_columns; j++) {
+            printf("%d\t",matrix[i][j]);
+        }printf("\n");}
     //Taking Input for vector
     for (i = 0; i < num_columns; i++) {
-        printf("Enter value for %d-th element of vector", i);
-        scanf("%d", &vector[i]);
+        vector[i]=rand()%100;
     }
+   
+   printf("Vector Generated :");
+   for (i = 0; i < num_columns; i++) {
+        printf("%d \t",vector[i]);
+    }
+    
+    gettimeofday(&tv, 0);
+    start_t = (double) tv.tv_sec + (double) tv.tv_usec / 1000000.0;
     findVectorMatrixMultiplication(matrix, vector, num_rows, num_columns);
-
+    gettimeofday(&tv, 0);
+    end_t = (double) tv.tv_sec + (double) tv.tv_usec / 1000000.0;
+    end_t = end_t - start_t;
+    printf("Time taken: %f ", end_t);
 }
 
 

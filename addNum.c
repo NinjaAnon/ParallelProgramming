@@ -28,7 +28,7 @@ void findSumOfArray(int * array, int array_size) {
     }
     gettimeofday(&tv, 0);
     end_t = (double) tv.tv_sec + (double) tv.tv_usec / 1000000.0;
-    printf("Time taken : %lf and Sum of all element is %d \n", end_t - start_t, array[0]);
+    printf("\nTime taken : %lf and Sum of all element is %d \n", end_t - start_t, array[0]);
 }
 
 main(int argc, char **argv) {
@@ -43,8 +43,12 @@ main(int argc, char **argv) {
     array = (int *) malloc(sizeof (double)*array_size);
 
     for (j = 0; j < array_size; j++) {
-        printf("Enter value for %d-th element", j);
-        scanf("%d", &array[j]);
+        array[j] = rand() % 100;
+    }
+    printf(" Array Generated : \n");
+        
+    for (j = 0; j < array_size; j++) {
+        printf("%d\t",array[j]);    
     }
 
     findSumOfArray(array, array_size);

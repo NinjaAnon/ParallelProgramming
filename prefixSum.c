@@ -54,22 +54,36 @@ void findPrefixSum(int *A, int n) {
 
 
     for (i = 1; i <= n; i++) {
-        printf("Prefix sum till %d-th element is %d \n ", i, C[0][i]);
+        printf("\nPrefix sum till %d-th element is %d \n ", i, C[0][i]);
     }
 
 }
 
 void main() {
     int n, h, i;
+    double start_t, end_t;
+    struct timeval tv;
     printf("Enter value of n. Please note n=2^x where x is any positive integer\n");
     scanf("%d", &n);
     int *A = (int *) malloc((n + 1) * sizeof (int));
 
     omp_set_num_threads(2);
     for (i = 1; i < n + 1; i++) {
-        printf("Enter value for %d-th element  :", i);
-        scanf("%d", &A[i]);
+        A[i]=rand()%100;
 
     }
+    printf("Original Array\n");
+    for (i = 1; i < n + 1; i++) {
+        printf("%d\t",A[i]);
+
+    }
+    gettimeofday(&tv, 0);
+    start_t = (double) tv.tv_sec + (double) tv.tv_usec / 1000000.0;
     findPrefixSum(A, n);
+    gettimeofday(&tv, 0);
+    end_t = (double) tv.tv_sec + (double) tv.tv_usec / 1000000.0;
+    end_t = end_t - start_t;
+
+    printf("Time taken: %f ", end_t);
+
 }
